@@ -63,6 +63,21 @@ function App() {
     borderRadius: 2,
   };
 
+  const getIngredients = (recipe) => {
+  const ingredients = [];
+
+  for (let i = 1; i <= 20; i++) {
+    const ingredient = recipe[`strIngredient${i}`];
+    const measure = recipe[`strMeasure${i}`];
+
+    if (ingredient && ingredient.trim() !== "") {
+      ingredients.push(`${measure} ${ingredient}`);
+    }
+  }
+
+  return ingredients;
+};
+
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
       <Typography variant="h3" align="center" gutterBottom>
@@ -108,6 +123,18 @@ function App() {
                 width="100%"
                 style={{ borderRadius: "8px" }}
               />
+              
+              <Typography variant="h6" sx={{ mt: 2 }}>
+  Ingredients
+</Typography>
+
+<ul>
+  {getIngredients(selectedRecipe).map((item, index) => (
+    <li key={index}>
+      <Typography variant="body2">{item}</Typography>
+    </li>
+  ))}
+</ul>
 
               <Typography sx={{ mt: 2 }}>
                 {selectedRecipe.strInstructions}

@@ -7,10 +7,19 @@ const RecipeCard = ({ recipe, onSelect }) => {
         maxWidth: 300,
         cursor: "pointer",
         transition: "0.3s",
+          borderRadius: 3,
+          overflow: "hidden",
         "&:hover": {
           transform: "scale(1.05)",
-          boxShadow: 6,
+          boxShadow: 6
         },
+        "& img": {
+          transition: "0.3s",
+        },
+        "&:hover img": {
+          transform: "scale(1.1)"
+
+        }
       }}
       onClick={() => onSelect(recipe.idMeal)}
     >

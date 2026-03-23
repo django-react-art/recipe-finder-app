@@ -54,13 +54,13 @@ function App() {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 600,
     maxHeight: "80vh",
     overflowY: "auto",
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 3,
-    borderRadius: 2,
+    borderRadius: 3,
   };
 
   const getIngredients = (recipe) => {
@@ -79,7 +79,7 @@ function App() {
 };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 5 }}>
+    <Container maxWidth="md" sx={{ mt: 2, lineHeight: 1.6 }}>
       <Typography variant="h3" align="center" gutterBottom>
         Recipe Finder 🍳
       </Typography>
@@ -88,7 +88,7 @@ function App() {
 
       {/* ✅ Spinner */}
       {loading && (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <CircularProgress />
         </Box>
       )}
@@ -121,24 +121,29 @@ function App() {
                 src={selectedRecipe.strMealThumb}
                 alt={selectedRecipe.strMeal}
                 width="100%"
-                style={{ borderRadius: "8px" }}
+                style={{ borderRadius: "8px", marginTop: "10px" }}
               />
+              <Box sx = {{ mt: 2 }}>
+                <Typography variant="h6">
+                    Ingredients
+                </Typography>
+
+              <ul style={{ paddingLeft: "20px", marginTop: "8px" }}>
+                {getIngredients(selectedRecipe).map((item, index) => (
+                  <li key={index}>
+                    <Typography variant="body2">{item}</Typography>
+                  </li>
+                ))}
+              </ul>
+            </Box>
+
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="h6">Instructions</Typography>
+                <Typography sx={{ mt: 1, lineHeight: 1.7 }}>
+                  {selectedRecipe.strInstructions}
+                </Typography>
+              </Box>
               
-              <Typography variant="h6" sx={{ mt: 2 }}>
-  Ingredients
-</Typography>
-
-<ul>
-  {getIngredients(selectedRecipe).map((item, index) => (
-    <li key={index}>
-      <Typography variant="body2">{item}</Typography>
-    </li>
-  ))}
-</ul>
-
-              <Typography sx={{ mt: 2 }}>
-                {selectedRecipe.strInstructions}
-              </Typography>
             </>
           )}
         </Box>

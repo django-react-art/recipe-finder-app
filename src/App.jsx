@@ -14,10 +14,12 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const fetchRecipes = async (query) => {
     try {
       setLoading(true);
+      setHasSearched(true);
 
       const response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
@@ -84,13 +86,19 @@ function App() {
         Recipe Finder 🍳
       </Typography>
 
-      <SearchBar onSearch={fetchRecipes} />
+      <SearchBar onSearch={fetchRecipes}  />
 
       {/* ✅ Spinner */}
       {loading && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <CircularProgress />
         </Box>
+      )}
+
+        {!loading && hasSearched && recipes.length === 0 && (
+        <Typography align="center" sx={{ mt: 2 }}>
+          No recipes found
+        </Typography>
       )}
 
       {/* ✅ Recipe Grid */}
